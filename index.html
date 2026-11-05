@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Land | Discover Movies</title>
+<meta name="description" content="Discover movies, explore cinema and watch official trailers on Movie Land.">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#090b12;color:#fff;font-family:Arial,sans-serif}
+header{height:75px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;background:#10131d;border-bottom:1px solid #292d3b;position:sticky;top:0;z-index:10}
+.logo{font-size:25px;font-weight:900;color:#f5b928}
+.logo span{color:white}
+nav{display:flex;gap:22px}
+nav a{color:#ddd;text-decoration:none;font-size:14px}
+nav a:hover{color:#f5b928}
+.hero{padding:75px 8%;min-height:340px;background:linear-gradient(90deg,#11131d 15%,#11131dcc 60%,#11131d55),url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1400') center/cover}
+.hero small{color:#f5b928;letter-spacing:3px}
+.hero h1{font-size:48px;margin:18px 0}
+.hero p{color:#ccc;max-width:470px;line-height:1.7}
+.btn{display:inline-block;background:#f5b928;color:#111;padding:13px 23px;border-radius:6px;text-decoration:none;font-weight:bold;margin-top:23px}
+main{padding:35px 7%}
+.search{display:flex;gap:10px;margin-bottom:30px}
+.search input{flex:1;min-width:0;padding:15px;border-radius:7px;border:1px solid #34394a;background:#171b28;color:white;font-size:15px}
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.categories button{padding:10px 18px;background:#191d2a;border:1px solid #34394a;color:#ddd;border-radius:25px;cursor:pointer}
+.categories button.active,.categories button:hover{background:#f5b928;color:#111;border-color:#f5b928}
+.section-title{font-size:23px;margin-bottom:20px}
+.movies{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{background:#151925;border-radius:10px;overflow:hidden;transition:.25s}
+.card:hover{transform:translateY(-6px)}
+.poster{height:260px;display:flex;align-items:end;padding:15px;background-size:cover;background-position:center}
+.poster h3{font-size:20px;text-shadow:0 2px 8px #000}
+.info{padding:14px}
+.info p{font-size:13px;color:#aeb3c2;margin:7px 0}
+.info a{display:inline-block;color:#f5b928;text-decoration:none;font-size:13px;margin-top:8px}
+footer{text-align:center;padding:30px;color:#8c92a3;border-top:1px solid #292d3b;margin-top:40px}
+.empty{color:#aaa;grid-column:1/-1;padding:25px}
+@media(max-width:800px){.movies{grid-template-columns:repeat(2,1fr)}nav{gap:10px}nav a{font-size:12px}.hero h1{font-size:36px}}
+@media(max-width:450px){header{padding:0 4%}.logo{font-size:20px}nav{gap:8px}.hero{padding:55px 6%}.hero h1{font-size:32px}main{padding:25px 4%}.poster{height:220px}}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="logo">MOVIE <span>LAND</span></div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#movies">Movies</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <small>WELCOME TO MOVIE LAND</small>
+  <h1>Discover Your<br>Next Favourite Movie.</h1>
+  <p>Explore cinema from around the world. Find movie information, discover new favourites and watch official trailers.</p>
+  <a href="#movies" class="btn">Explore Movies →</a>
+</section>
+
+<main id="movies">
+  <div class="search">
+    <input id="search" type="search" placeholder="Search your favourite movie..." oninput="renderMovies()">
+  </div>
+
+  <div class="categories">
+    <button class="active" onclick="setCategory('All',this)">All</button>
+    <button onclick="setCategory('Hollywood',this)">Hollywood</button>
+    <button onclick="setCategory('Bollywood',this)">Bollywood</button>
+    <button onclick="setCategory('Bangla',this)">Bangla</button>
+  </div>
+
+  <h2 class="section-title">Popular Movies</h2>
+  <div class="movies" id="movieGrid"></div>
+</main>
+
+<footer id="about">
+  <div class="logo">MOVIE LAND</div>
+  <p style="margin-top:12px">Discover. Explore. Enjoy Cinema.</p>
+  <p style="margin-top:12px;font-size:12px">© 2026 Movie Land. Movie information and official trailer links only.</p>
+</footer>
+
+<script>
+const movies=[
+ {title:"Interstellar",category:"Hollywood",year:2014,genre:"Sci-Fi / Adventure",color:"linear-gradient(135deg,#101b38,#956c47)",id:"zSWdZVtXT7E"},
+ {title:"Inception",category:"Hollywood",year:2010,genre:"Sci-Fi / Thriller",color:"linear-gradient(135deg,#17243d,#a45c37)",id:"YoHD9XEInc0"},
+ {title:"The Dark Knight",category:"Hollywood",year:2008,genre:"Action / Crime",color:"linear-gradient(135deg,#10121a,#62504b)",id:"EXeTwQWrcwY"},
+ {title:"Dune: Part Two",category:"Hollywood",year:2024,genre:"Sci-Fi / Adventure",color:"linear-gradient(135deg,#47301d,#bd8a52)",id:"Way9Dexny3w"},
+ {title:"3 Idiots",category:"Bollywood",year:2009,genre:"Comedy / Drama",color:"linear-gradient(135deg,#184c3c,#d19c44)",id:"K0eDlFX9GMc"},
+ {title:"Dangal",category:"Bollywood",year:2016,genre:"Drama / Sport",color:"linear-gradient(135deg,#342b25,#a77d51)",id:"x_7YlGv9u1g"},
+ {title:"Pathaan",category:"Bollywood",year:2023,genre:"Action / Thriller",color:"linear-gradient(135deg,#1b263e,#8e5a37)",id:"vqu4z34wENw"},
+ {title:"Hawa",category:"Bangla",year:2022,genre:"Mystery / Drama",color:"linear-gradient(135deg,#153b48,#377b80)",id:""},
+ {title:"Poran",category:"Bangla",year:2022,genre:"Romance / Drama",color:"linear-gradient(135deg,#432c28,#c17a4c)",id:""}
+];
+
+let currentCategory="All";
+
+function setCategory(category,button){
+ currentCategory=category;
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderMovies();
+}
+
+function renderMovies(){
+ const query=document.getElementById("search").value.toLowerCase();
+ const filtered=movies.filter(m=>
+  (currentCategory==="All"||m.category===currentCategory)&&
+  m.title.toLowerCase().includes(query)
+ );
+ const grid=document.getElementById("movieGrid");
+ if(!filtered.length){
+  grid.innerHTML='<p class="empty">No movies found. Try another search.</p>';
+  return;
+ }
+ grid.innerHTML=filtered.map(m=>`
+  <article class="card">
+   <div class="poster" style="background:${m.color}">
+    <h3>${m.title}</h3>
+   </div>
+   <div class="info">
+    <strong>${m.title}</strong>
+    <p>${m.year} · ${m.category}</p>
+    <p>${m.genre}</p>
+    ${m.id?`<a href="https://www.youtube.com/watch?v=${m.id}" target="_blank" rel="noopener">▶ Official Trailer</a>`:`<span style="color:#999;font-size:13px">Trailer link coming soon</span>`}
+   </div>
+  </article>
+ `).join("");
+}
+
+renderMovies();
+</script>
+</body>
+</html>
