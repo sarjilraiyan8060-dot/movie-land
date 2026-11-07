@@ -314,7 +314,7 @@ footer strong{font:600 22px 'Playfair Display',serif;letter-spacing:2px;color:wh
 </footer>
 
 <script>
-
+document.addEventListener('DOMContentLoaded', function() {
 const search = document.getElementById('search');
 const cards = [...document.querySelectorAll('.card')];
 const buttons = [...document.querySelectorAll('.filters button')];
@@ -565,7 +565,8 @@ document.addEventListener('keydown', function(event) {
     closeDestination();
   }
 });
-
+ 
+});
 </script>
 <footer style="background:#10251e; color:#d6b77a; text-align:center; padding:35px 15px; margin-top:50px;">
   <h3 style="font-family:Georgia,serif; letter-spacing:3px;">TERRAVIA</h3>
