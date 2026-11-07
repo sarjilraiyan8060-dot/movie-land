@@ -313,6 +313,44 @@ footer strong{font:600 22px 'Playfair Display',serif;letter-spacing:2px;color:wh
   <span>© 2026 TERRAVIA. All rights reserved.</span>
 </footer>
 
+<!-- TERRAVIA Destination Details Popup -->
+<div class="destination-modal" id="destinationModal">
+  <div class="destination-box">
+
+    <button class="destination-close" id="closeDestination">×</button>
+
+    <img id="detailImage" class="destination-cover" src="" alt="">
+
+    <div class="destination-content">
+      <span class="detail-label" id="detailCountry"></span>
+      <h2 id="detailTitle"></h2>
+
+      <p id="detailIntro"></p>
+
+      <h3>History & Heritage</h3>
+      <p id="detailHistory"></p>
+
+      <h3>Top Attractions</h3>
+      <ul id="detailAttractions"></ul>
+
+      <h3>How to Get There</h3>
+      <p id="detailTravel"></p>
+
+      <h3>Best Time to Visit</h3>
+      <p id="detailSeason"></p>
+
+      <h3>Estimated Budget</h3>
+      <p id="detailBudget"></p>
+
+      <a id="detailMap" class="destination-map"
+         href="#" target="_blank" rel="noopener">
+        View on Google Maps →
+      </a>
+    </div>
+
+  </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 const search = document.getElementById('search');
