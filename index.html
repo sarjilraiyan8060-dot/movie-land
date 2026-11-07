@@ -64,6 +64,114 @@ footer strong{font:600 22px 'Playfair Display',serif;letter-spacing:2px;color:wh
  .section-head h2{font-size:33px}
  .about h2{font-size:34px}
 }
+ 
+/* TERRAVIA Destination Details */
+.destination-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.78);
+  padding: 20px;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.destination-modal.show {
+  display: flex;
+}
+
+.destination-box {
+  background: #fff;
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 12px;
+  animation: detailOpen .3s ease;
+}
+
+@keyframes detailOpen {
+  from {opacity:0;transform:translateY(20px)}
+  to {opacity:1;transform:translateY(0)}
+}
+
+.destination-cover {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.destination-content {
+  padding: 30px;
+}
+
+.destination-content h2 {
+  font: 600 36px 'Playfair Display',serif;
+  color: #173b32;
+  margin: 10px 0;
+}
+
+.destination-content h3 {
+  font: 600 22px 'Playfair Display',serif;
+  color: #173b32;
+  margin: 25px 0 10px;
+}
+
+.destination-content p,
+.destination-content li {
+  color: #68746c;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.destination-content ul {
+  padding-left: 22px;
+}
+
+.destination-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 2;
+  background: #173b32;
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.destination-map {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 13px 22px;
+  background: #b58a50;
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.destination-content .detail-label {
+  color: #ad8755;
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+@media(max-width:600px) {
+  .destination-modal {padding:10px}
+  .destination-box {max-height:94vh}
+  .destination-cover {height:220px}
+  .destination-content {padding:20px}
+  .destination-content h2 {font-size:29px}
+}
+
 </style>
  <link rel="canonical" href="https://sarjilraiyan8060-dot.github.io/terravia/">
 <meta property="og:title" content="TERRAVIA | Travel Destinations by Touhid Emon">
