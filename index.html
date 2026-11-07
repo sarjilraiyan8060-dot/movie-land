@@ -314,32 +314,47 @@ footer strong{font:600 22px 'Playfair Display',serif;letter-spacing:2px;color:wh
 </footer>
 
 <script>
+
 const search = document.getElementById('search');
 const cards = [...document.querySelectorAll('.card')];
 const buttons = [...document.querySelectorAll('.filters button')];
+
 let category = 'all';
 
-function filterCards(){
+function filterCards() {
   const term = search.value.toLowerCase();
   let visible = 0;
 
   cards.forEach(card => {
-    const matchesCategory = category === 'all' || card.dataset.category === category;
-    const matchesSearch = card.innerText.toLowerCase().includes(term);
+    const matchesCategory =
+      category === 'all' ||
+      card.dataset.category === category;
+
+    const matchesSearch =
+      card.innerText.toLowerCase().includes(term);
+
     const show = matchesCategory && matchesSearch;
+
     card.style.display = show ? '' : 'none';
-    if(show) visible++;
+
+    if (show) visible++;
   });
 
   let empty = document.querySelector('.empty');
-  if(!visible){
-    if(!empty){
+
+  if (!visible) {
+    if (!empty) {
       empty = document.createElement('p');
       empty.className = 'empty';
-      empty.textContent = 'No destinations found. Try another search.';
-      document.getElementById('destinationGrid').appendChild(empty);
+      empty.textContent =
+        'No destinations found. Try another search.';
+
+      document.getElementById('destinationGrid')
+        .appendChild(empty);
     }
-  }else if(empty) empty.remove();
+  } else if (empty) {
+    empty.remove();
+  }
 }
 
 search.addEventListener('input', filterCards);
@@ -347,11 +362,210 @@ search.addEventListener('input', filterCards);
 buttons.forEach(button => {
   button.addEventListener('click', () => {
     buttons.forEach(b => b.classList.remove('active'));
+
     button.classList.add('active');
     category = button.dataset.filter;
+
     filterCards();
   });
 });
+
+/* Destination Information Database */
+
+const destinationData = {
+
+  "Cox's Bazar": {
+    country: "BANGLADESH",
+    intro: "Cox's Bazar is famous for its long sandy coastline, beautiful sea views and relaxing beach atmosphere. It is one of Bangladesh's most popular tourist destinations.",
+    history: "Cox's Bazar takes its name from Captain Hiram Cox, an officer associated with the British colonial period. The area gradually developed into a major seaside tourism destination.",
+    attractions: [
+      "Laboni Beach",
+      "Kolatoli Beach",
+      "Himchari National Park",
+      "Inani Beach",
+      "Marine Drive Road",
+      "Ramu Buddhist Temple"
+    ],
+    travel: "From Dhaka, visitors can travel to Cox's Bazar by bus, train connections or domestic flight. Local transport such as CNG, auto-rickshaws and rented vehicles can be used to explore nearby attractions.",
+    season: "November to February is generally comfortable for beach visits. Check weather and sea conditions before travelling.",
+    budget: "A rough budget of BDT 8,000–15,000 per person for a short trip from Dhaka. Actual costs depend on transport, hotel and travel style.",
+    map: "Cox's Bazar Bangladesh"
+  },
+
+  "Sajek Valley": {
+    country: "BANGLADESH",
+    intro: "Sajek Valley is a beautiful hill destination in the Chittagong Hill Tracts. Its green mountains, clouds, winding roads and peaceful landscapes attract nature lovers.",
+    history: "Sajek is located in the Rangamati Hill District. The region is home to Indigenous communities with distinctive traditions, lifestyles and cultural heritage.",
+    attractions: [
+      "Konglak Hill",
+      "Ruilui Para",
+      "Helipad Viewpoint",
+      "Sajek Valley Viewpoints",
+      "Mountain Landscapes",
+      "Local Markets"
+    ],
+    travel: "Travel from Dhaka to Khagrachhari by bus. From Khagrachhari, visitors generally arrange authorised local transport to Sajek. Follow current security and vehicle instructions from local authorities.",
+    season: "October to March is generally popular for clear mountain views. Rainy-season travel offers lush scenery but may involve road and weather difficulties.",
+    budget: "A rough budget of BDT 6,000–10,000 per person for a short group trip from Dhaka. Costs vary with transport, accommodation and group size.",
+    map: "Sajek Valley Rangamati Bangladesh"
+  },
+
+  "Sundarbans": {
+    country: "BANGLADESH",
+    intro: "The Sundarbans is the world's largest continuous mangrove forest, known for its rich biodiversity, winding waterways and remarkable natural ecosystem.",
+    history: "The Sundarbans has a long history of forest management and human interaction with mangrove ecosystems. It is recognised as an important natural heritage site and supports many wildlife species.",
+    attractions: [
+      "Karamjal Wildlife Centre",
+      "Hiron Point",
+      "Katka",
+      "Kochikhali",
+      "Mangrove Waterways",
+      "Wildlife Watching"
+    ],
+    travel: "Travellers commonly reach Mongla or other authorised departure points from Dhaka and join an approved guided boat tour. Entry permits and licensed guides are required for designated areas.",
+    season: "November to February is generally a comfortable period for organised forest trips. Follow official weather, wildlife and permit guidance.",
+    budget: "A rough budget of BDT 8,000–15,000 or more per person for an organised short tour. Boat, accommodation and tour packages affect the cost.",
+    map: "Sundarbans Bangladesh"
+  },
+
+  "Amalfi Coast": {
+    country: "ITALY",
+    intro: "The Amalfi Coast is a spectacular Mediterranean coastline in southern Italy. It is known for colourful cliffside villages, scenic coastal roads and beautiful sea views.",
+    history: "The Amalfi region was historically associated with the maritime Republic of Amalfi, which became an important trading power during the Middle Ages.",
+    attractions: [
+      "Positano",
+      "Amalfi Town",
+      "Ravello",
+      "Villa Rufolo",
+      "Path of the Gods",
+      "Fiordo di Furore"
+    ],
+    travel: "International visitors can fly to Naples and continue by train, bus, ferry or private transfer depending on the season and destination.",
+    season: "April to June and September to October are popular periods for pleasant weather and sightseeing.",
+    budget: "International travel costs depend heavily on airfare, accommodation, visa, transport and trip length. Prepare a separate Italy travel budget.",
+    map: "Amalfi Coast Italy"
+  },
+
+  "Santorini": {
+    country: "GREECE",
+    intro: "Santorini is a Greek island famous for whitewashed buildings, blue-domed churches, dramatic volcanic cliffs and spectacular sunsets.",
+    history: "Santorini is part of a volcanic island group. Its landscape was strongly shaped by a major ancient volcanic eruption, which influenced the island's geography and history.",
+    attractions: [
+      "Oia Village",
+      "Fira Town",
+      "Imerovigli",
+      "Red Beach",
+      "Akrotiri Archaeological Site",
+      "Santorini Caldera"
+    ],
+    travel: "Visitors can reach Santorini through domestic or international flights, or by ferry from Athens and other Greek islands.",
+    season: "April to June and September to October are popular for sightseeing and more moderate temperatures.",
+    budget: "International costs vary by airfare, accommodation, ferry or flight choices, visa and travel season.",
+    map: "Santorini Greece"
+  },
+
+  "Kyoto": {
+    country: "JAPAN",
+    intro: "Kyoto is one of Japan's most culturally significant cities. It is known for historic temples, traditional streets, Japanese gardens and seasonal natural beauty.",
+    history: "Kyoto served as Japan's imperial capital for more than a thousand years, from 794 until the imperial court moved to Tokyo in the nineteenth century.",
+    attractions: [
+      "Fushimi Inari Taisha",
+      "Kinkaku-ji",
+      "Arashiyama Bamboo Grove",
+      "Kiyomizu-dera",
+      "Gion District",
+      "Nishiki Market"
+    ],
+    travel: "International visitors can arrive through major Japanese airports and continue to Kyoto by Shinkansen, railway or airport bus.",
+    season: "March to May and October to November are popular for cherry blossoms and autumn foliage.",
+    budget: "International travel costs depend on flights, accommodation, visa, rail passes, food and the length of your stay.",
+    map: "Kyoto Japan"
+  }
+
+};
+
+/* Open Destination Details */
+
+const modal = document.getElementById('destinationModal');
+
+function openDestination(card) {
+  const title = card.querySelector('h3').textContent.trim();
+  const data = destinationData[title];
+
+  if (!data) {
+    alert('Destination information is coming soon!');
+    return;
+  }
+
+  const image = card.querySelector('img').src;
+
+  document.getElementById('detailImage').src = image;
+  document.getElementById('detailImage').alt = title;
+  document.getElementById('detailCountry').textContent = data.country;
+  document.getElementById('detailTitle').textContent = title;
+  document.getElementById('detailIntro').textContent = data.intro;
+  document.getElementById('detailHistory').textContent = data.history;
+  document.getElementById('detailTravel').textContent = data.travel;
+  document.getElementById('detailSeason').textContent = data.season;
+  document.getElementById('detailBudget').textContent = data.budget;
+
+  const attractionList =
+    document.getElementById('detailAttractions');
+
+  attractionList.innerHTML = '';
+
+  data.attractions.forEach(place => {
+    const li = document.createElement('li');
+    li.textContent = place;
+    attractionList.appendChild(li);
+  });
+
+  document.getElementById('detailMap').href =
+    'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent(data.map);
+
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+/* Make Discover More open the popup */
+
+document.getElementById('destinationGrid')
+  .addEventListener('click', function(event) {
+
+    const link = event.target.closest('.card-info a');
+
+    if (!link) return;
+
+    event.preventDefault();
+
+    const card = link.closest('.card');
+
+    openDestination(card);
+  });
+
+/* Close Popup */
+
+function closeDestination() {
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('closeDestination')
+  .addEventListener('click', closeDestination);
+
+modal.addEventListener('click', function(event) {
+  if (event.target === modal) {
+    closeDestination();
+  }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeDestination();
+  }
+});
+
 </script>
 <footer style="background:#10251e; color:#d6b77a; text-align:center; padding:35px 15px; margin-top:50px;">
   <h3 style="font-family:Georgia,serif; letter-spacing:3px;">TERRAVIA</h3>
